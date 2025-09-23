@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Git Ops First&#8201;&#8212;&#8201;Was ist GitOps? :: Eitco CloudStack Documentation</title>
+    <link rel="canonical" href="https://docs.k8s.projekte.eitco.de/CloudStack/current/gitops-first.html">
+    <meta name="generator" content="Antora 3.1.12">
+<link rel="icon" href="../../_/img/favicon-32x32.png" type="image/png" sizes="32x32">
+<link rel="alternate icon" href="../../_/img/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../../_/img/apple-touch-icon.png">
+<meta name="theme-color" content="#137080">
+
+<link rel="stylesheet" href="../../_/css/site.css">
+<link rel="stylesheet" href="../../_/css/eitco-header.css">
+  </head>
+  <body class="article">
+<header class="header header--brand">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a class="brand-link brand-logo" href="https://www.eitco.de" rel="noopener" aria-label="EITCO">
+          <img src="../../_/img/eitco_Wortmarke_Color_weiss.png" alt="EITCO" height="32" loading="eager">
+        </a>
+        <span class="separator">//</span>
+        <a class="docs-link" href="https://docs.k8s.projekte.eitco.de">CloudStack Docs</a>
+      </div>
+
+      <button class="navbar-burger" data-target="topbar-nav" aria-label="menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="https://github.com/eitco" rel="noopener">Repositories</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://github.com/eitco/argo-hub" rel="noopener">Argo Hub</a>
+            <hr class="navbar-divider">
+            <a class="navbar-item" href="https://github.com/eitco?q=argo-repo&type=all&language=&sort=" rel="noopener">Cluster Repositories</a>
+            <hr class="navbar-divider">
+            <a class="navbar-item has-label" href="https://github.com/orgs/eitco/packages" rel="noopener">
+              Container Registry <small>GHCR</small>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">Zusammenarbeit</div>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item has-label" href="https://eitco.atlassian.net/wiki/spaces/CCC/overview" rel="noopener">
+              Confluence <small>Docs</small>
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item has-label" href="https://tracking.eitco.de/secure/RapidBoard.jspa?rapidView=717#" rel="noopener">
+              Jira <small>Tickets</small>
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item has-label" href="https://tracking.eitco.de/secure/PortfolioPlanView.jspa?id=19&sid=21&vid=73#plan/backlog" rel="noopener">
+              Roadmap <small>Jira Plan</small>
+            </a>
+          </div>
+        </div>
+
+        <div class="navbar-item search hide-for-print">
+            <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+
+        <div class="navbar-item">
+          <a class="button contact-btn" href="mailto:kubernetes@eitco.de" aria-label="Kontakt Platform Team">
+            Kontakt
+          </a>
+        </div>
+
+        <a class="navbar-item navbar-item--icon" href="https://github.com/eitco" rel="noopener" aria-label="EITCO on GitHub">
+          <span class="icon">
+            <svg aria-hidden="true" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 24 24" width="22" height="22" focusable="false">
+              <path fill="currentColor"
+                d="M12 .5a11.5 11.5 0 0 0-3.64 22.42c.58.11.79-.25.79-.56v-2.1c-3.22.7-3.9-1.36-3.9-1.36-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.74 1.27 3.4.97.11-.76.41-1.27.74-1.56-2.57-.3-5.28-1.29-5.28-5.74 0-1.27.46-2.31 1.2-3.13-.12-.3-.52-1.52.11-3.16 0 0 .98-.31 3.2 1.19a11.1 11.1 0 0 1 5.82 0c2.22-1.5 3.2-1.19 3.2-1.19.64 1.64.24 2.86.12 3.16.75.82 1.2 1.86 1.2 3.13 0 4.46-2.72 5.44-5.31 5.73.42.36.8 1.07.8 2.16v3.21c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .5z"/>
+            </svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="CloudStack" data-version="1.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Eitco CloudStack</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Übersicht</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Eitco CloudStack</span>
+    <span class="version">1.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">Eitco CloudStack</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">1.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Eitco CloudStack</a></li>
+    <li><a href="gitops-first.html">Git Ops First&#8201;&#8212;&#8201;Was ist GitOps?</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="https://github.com/eitco/argo-hub/edit/feature/docu-structure/docs/modules/ROOT/pages/gitops-first.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Git Ops First&#8201;&#8212;&#8201;Was ist GitOps?</h1>
+<div class="sect1">
+<h2 id="_ziel"><a class="anchor" href="#_ziel"></a>Ziel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mittels GitOps wollen wir einen zentralen Ort definieren, welcher als sogenannte “Quelle der Wahrheit” dient.</p>
+</div>
+<div class="paragraph">
+<p>Damit wir uns zukünftig die händischen Anpassungen in Kubernetes Clustern ersparen und somit die Fehleranfälligkeit minimieren, nutzen wir GitOps.</p>
+</div>
+<div class="sect2">
+<h3 id="_warum"><a class="anchor" href="#_warum"></a>Warum?</h3>
+<div class="paragraph">
+<p>Mittels GitOps soll ein gewünschter Systemzustand in einer versionierten, nachvollziehbaren Weise hinterlegt werden, wie wir es bereits von Git gewohnt sind und auch schätzen.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wie"><a class="anchor" href="#_wie"></a>Wie?</h3>
+<div class="paragraph">
+<p>Es sollen Anpassungen lediglich über das entsprechende Git-Repository erfolgen und an keiner anderen Stelle. Wer in das Git-Repo schaut, sieht den Zustand und weiß, was sich auf dem/n Kubernetes Cluster/n befindet und abspielt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vergleich_mit_puppet"><a class="anchor" href="#_vergleich_mit_puppet"></a>Vergleich mit Puppet</h3>
+<div class="paragraph">
+<p>Ähnliche Workflows nutzen wir bereits erfolgreich in der Eitco mittels Puppet. Auch, wenn der Vergleich nicht zu 100% passt, so ist das Ziel nicht besonders anders:</p>
+</div>
+<div class="paragraph">
+<p>Wir wollen festgelegte Konfigurationszustände – die wir im Git verwalten – in genau diesem Zustand auf den Zielsystemen vorfinden und somit eine Reproduzierbarkeit erhalten.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_weiterführende_literatur"><a class="anchor" href="#_weiterführende_literatur"></a>Weiterführende Literatur</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.redhat.com/en/topics/devops/what-is-gitops">What is GitOps? Benefits, Principles, and How to Get Started</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-nav">
+      <a href="https://www.eitco.de/impressum/">Impressum</a>
+      <a href="https://www.eitco.de/datenschutzerklaerung/">Datenschutz</a>
+      <a href="https://www.eitco.de/kontakt/">Kontakt</a>
+    </nav>
+
+    <div class="footer-social">
+      <a href="https://github.com" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61-.55-1.41-1.34-1.79-1.34-1.79-1.09-.75.08-.73.08-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.39 1.24-3.23-.13-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.23a11.47 11.47 0 0 1 6 0c2.28-1.55 3.3-1.23 3.3-1.23.66 1.64.25 2.86.12 3.16.77.84 1.24 1.92 1.24 3.23 0 4.61-2.8 5.63-5.47 5.93.43.37.81 1.1.81 2.23v3.3c0 .32.22.7.83.58A12 12 0 0 0 12 .5z"/></svg>
+      </a>
+      <a href="https://de.linkedin.com/company/eitco" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v2h.05c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.79 2.66 4.79 6.11V23h-4v-6.49c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.68-2.49 3.42V23h-3.77V8.5z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-legal">
+    <small>©  Eitco. Built with Antora.</small>
+  </div>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+  </body>
+</html>
