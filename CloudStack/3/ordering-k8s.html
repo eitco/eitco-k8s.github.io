@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>App-Struktur im Git-Repo :: Eitco CloudStack Documentation</title>
-    <link rel="canonical" href="https://docs.k8s.projekte.eitco.de/CloudStack/current/gitops-structure.html">
+    <title>Bestellung eines Kubernetes-Clusters :: Eitco CloudStack Documentation</title>
+    <link rel="canonical" href="https://docs.k8s.projekte.eitco.de/CloudStack/current/ordering-k8s.html">
     <meta name="generator" content="Antora 3.1.12">
 <link rel="icon" href="../../_/img/favicon-32x32.png" type="image/png" sizes="32x32">
 <link rel="alternate icon" href="../../_/img/favicon.ico" sizes="any">
@@ -89,7 +89,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="CloudStack" data-version="4">
+<div class="nav-container" data-component="CloudStack" data-version="3">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -110,17 +110,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">Eitco CloudStack</span>
-    <span class="version">4</span>
+    <span class="version">3</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <div class="title"><a href="index.html">Eitco CloudStack</a></div>
+      <div class="title"><a href="../current/index.html">Eitco CloudStack</a></div>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="index.html">4</a>
+        <li class="version is-latest">
+          <a href="../current/index.html">4</a>
         </li>
-        <li class="version">
-          <a href="../3/index.html">3</a>
+        <li class="version is-current">
+          <a href="index.html">3</a>
         </li>
       </ul>
     </li>
@@ -132,188 +132,73 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="index.html" class="home-link"></a>
+  <a href="../current/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Eitco CloudStack</a></li>
-    <li><a href="gitops-structure.html">App-Struktur im Git-Repo</a></li>
+    <li><a href="ordering-k8s.html">Bestellung eines Kubernetes-Clusters</a></li>
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">4</button>
+  <button class="version-menu-toggle" title="Show other versions of page">3</button>
   <div class="version-menu">
-    <a class="version is-current" href="gitops-structure.html">4</a>
-    <a class="version" href="../3/gitops-structure.html">3</a>
+    <a class="version" href="../current/ordering-k8s.html">4</a>
+    <a class="version is-current" href="ordering-k8s.html">3</a>
   </div>
 </div>
-<div class="edit-this-page"><a href="https://github.com/eitco/argo-hub/edit/release/v4.0/docs/modules/ROOT/pages/gitops-structure.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eitco/argo-hub/edit/release/v3.0/docs/modules/ROOT/pages/ordering-k8s.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">App-Struktur im Git-Repo</h1>
-<div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_argo_app_konfiguration">Argo-App Konfiguration</a></li>
-<li><a href="#_besonderheiten_bei_kustomize">Besonderheiten bei Kustomize</a></li>
-<li><a href="#_beispiel_kustomization_yaml">Beispiel: kustomization.yaml</a></li>
-</ul>
-</div>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Wir sind fully gitops – jeder Cluster hat sein eigenes Repo zur Steuerung. Es gibt noch ein weiteres Repo, wo die Plattformdefinition selbst liegt.</p>
-</div>
-<div class="paragraph">
-<p>ArgoCD bietet mit seinen eingebauten Tools zahlreiche Möglichkeiten &amp; Optionen, wie man sein App-Deployment strukturieren kann. Darüber hinaus lassen sich diese Möglichkeiten dank Argo´s Erweiterbarkeit durch Plugins schier grenzenlos erweitern.</p>
-</div>
-<div class="paragraph">
-<p>Für die allermeisten Deployment-Szenarien empfehlen wir folgende Struktur im Git-Repo:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">.
-├── platform/
-├── workflows/
-└── project/
-    ├── my-app1.yaml
-    ├── my-app2.yaml
-    └── components/
-        ├── my-app1/
-        │   ├── application-values.yaml
-        │   └── manifests/
-        │       ├── plain-kubernetes-manifest-ingress.yaml
-        │       └── plain-kubernetes-manifest-deployment.yaml
-        └── my-app2/
-            ├── application-values.yaml
-            └── manifests/
-                ├── plain-kubernetes-manifest-role.yaml
-                ├── kustomization.yaml
-                └── special-app-config/
-                    ├── config.json
-                    ├── cacerts
-                    ├── my-config.ini
-                    ├── script.sh
-                    └── another-config.xml</code></pre>
-</div>
-</div>
-</div>
-</div>
+<h1 class="page">Bestellung eines Kubernetes-Clusters</h1>
 <div class="sect1">
-<h2 id="_argo_app_konfiguration"><a class="anchor" href="#_argo_app_konfiguration"></a>Argo-App Konfiguration</h2>
+<h2 id="_ablauf"><a class="anchor" href="#_ablauf"></a>Ablauf</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Im <code>project</code>-Ordner wird die Argo-App (z. B. <code>my-app1.yaml</code>) abgelegt und sieht inhaltlich so aus:</p>
+<p>Um einen Kubernetes-Cluster zu bestellen, sende bitte eine E-Mail an die folgende Adresse:</p>
 </div>
 <div class="paragraph">
-<p>Die Argo-App hat in den sources zwei wichtige Verweise:</p>
+<p><a href="mailto:kubernetes@eitco.de">kubernetes@eitco.de</a></p>
+</div>
+<div class="sect2">
+<h3 id="_erforderliche_informationen"><a class="anchor" href="#_erforderliche_informationen"></a>Erforderliche Informationen</h3>
+<div class="paragraph">
+<p>Deine Anfrage muss die folgenden Informationen enthalten:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Verweis auf ein Helm-Chart, mit dem deine App deployt werden soll inklusive einer Value-File (<code>application-values.yaml</code>), in der du die Values deiner Helm-Installation definieren kannst.</p>
+<p>Name des Anforderers</p>
 </li>
 <li>
-<p>Du kannst Helm-Charts nutzen, musst es aber nicht! Eine Source kann auch lediglich einen Pfad angeben, wo einfache Kubernetes-Manifeste liegen, die ArgoCD im Cluster anlegen soll.</p>
+<p>Projektname / Name des internen Systems (Bitte gib hier zusätzlich ein eindeutiges Projekt Kürzel an - wird für die Namensgebung des Clusters benötigt. Wir bitten darum das Jira-Projekt-Kürzel zu verwenden!)</p>
+</li>
+<li>
+<p>Art des Systems: Dev/Test, Demo System, (internes) Produktiv System</p>
+</li>
+<li>
+<p>AD-Gruppe der User, welche Zugriff erhalten sollen</p>
+</li>
+<li>
+<p>Ressourcenanforderungen: klein, mittel, groß (exakte Hardware-Anforderungen werden in Zukunft möglich sein)</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Zusätzlich dient die zweite Source als Referenz für das Value-File in der Helm-Chart Source.</p>
 </div>
+<div class="sect2">
+<h3 id="_überprüfungsprozess"><a class="anchor" href="#_überprüfungsprozess"></a>Überprüfungsprozess</h3>
 <div class="paragraph">
-<p>Die Referenz auf das Git-Repo wird im Feld <code>ref</code> als Variable <code>common</code> gespeichert und in der Helm-Chart Source über <code>$common</code> referenziert.</p>
-</div>
-<div class="paragraph">
-<p>Das <code>path</code>-Feld gibt an, in welchem Ordner ArgoCD nach Manifesten zum Erstellen nachschauen soll.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Wenn man das <code>path</code>-Feld nicht angibt, wird ArgoCD jene Manifeste entsprechend nicht berücksichtigen. Das kann z. B. vom Nutzen sein, wenn man keine Manifeste neben dem Helm-Chart selbst hat und lediglich das <code>ref</code>-Feld für die Helm-Values nutzen möchte.
-</td>
-</tr>
-</table>
+<p>Nachdem deine Anfrage eingegangen ist, wird sie von einem Platform Engineer überprüft. Dies kann ein wenig Zeit in Anspruch nehmen.</p>
 </div>
 <div class="paragraph">
-<p>Im <code>destination</code>-Feld wird ein Namespace für das Deployment im Cluster bestimmt, welches durch eine <code>syncOption</code> im Cluster angelegt und über <code>managedNamespaceMetadata</code> mit einer Annotation versorgt wird.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_besonderheiten_bei_kustomize"><a class="anchor" href="#_besonderheiten_bei_kustomize"></a>Besonderheiten bei Kustomize</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Die andere App <code>my-app2</code> ist im Grunde exakt gleich aufgebaut, aber mit dem Unterschied, dass in den Manifesten für die zweite Source eine <code>kustomization.yaml</code> liegt.</p>
+<p>Stelle sicher, dass alle erforderlichen Informationen in deiner Anfrage enthalten sind, um Verzögerungen zu vermeiden.</p>
 </div>
 <div class="paragraph">
-<p>Aus diesem Grund wird ArgoCD´s Tool-Autodetection sich entscheiden, Kustomize für die Erzeugung der Ressourcen im Cluster zu nutzen.</p>
+<p>Die technische Bereitstellung selbst dauert je nach Umgebung ca. 30 Minuten.</p>
 </div>
-<div class="paragraph">
-<p>Mithilfe von Kustomize lassen sich eigene (auch komplexere) Strukturen bauen, wie die Manifeste angeordnet werden sollen. ArgoCD berücksichtigt dann jedoch nur noch die Manifeste, welche in der <code>kustomization.yaml</code> referenziert sind!</p>
-</div>
-<div class="paragraph">
-<p>In diesem Fall will man mithilfe von Kustomize´s <code>configMapGenerator</code> oder <code>secretGenerator</code> Dateiformate, die nicht Kubernetes-typisch sind, ins Cluster importieren, um sie dann später in einen Pod / Container zu mounten.</p>
-</div>
-<div class="paragraph">
-<p>Man kann jede beliebige Datei und jedes beliebige Dateiformat auf diese Art ins Cluster importieren.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-ConfigMaps &amp; Secrets in Kubernetes dürfen die Größe von 1 MiB nicht übersteigen!
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_beispiel_kustomization_yaml"><a class="anchor" href="#_beispiel_kustomization_yaml"></a>Beispiel: kustomization.yaml</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
-secretGenerator:
-  - name: my-app2-cacerts
-    type: Opaque
-    options:
-      disableNameSuffixHash: true
-    files:
-      - special-app-config/cacerts
-
-configMapGenerator:
-  - name: my-app2-configs
-    options:
-      disableNameSuffixHash: true
-    files:
-      - special-app-config/config.json
-      - special-app-config/my-config.ini
-      - special-app-config/script.sh
-      - special-app-config/another-config.xml
-
-resources:
-  - plain-kubernetes-manifest-role.yaml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Weitere Details zur Argo-App-Spezifikation findest du hier:</p>
-</div>
-<div class="paragraph">
-<p><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/">Application Specification Reference – Argo CD</a></p>
 </div>
 </div>
 </div>
