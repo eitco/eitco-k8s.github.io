@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Bestellung eines Kubernetes-Clusters :: Eitco CloudStack Documentation</title>
-    <link rel="canonical" href="https://docs.k8s.projekte.eitco.de/CloudStack/current/ordering-k8s.html">
+    <title>Git Ops First&#8201;&#8212;&#8201;Was ist GitOps? :: Eitco CloudStack Documentation</title>
+    <link rel="canonical" href="https://docs.k8s.projekte.eitco.de/CloudStack/current/gitops-first.html">
     <meta name="generator" content="Antora 3.1.12">
 <link rel="icon" href="../../_/img/favicon-32x32.png" type="image/png" sizes="32x32">
 <link rel="alternate icon" href="../../_/img/favicon.ico" sizes="any">
@@ -89,7 +89,7 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="CloudStack" data-version="3">
+<div class="nav-container" data-component="CloudStack" data-version="4">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -110,17 +110,17 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">Eitco CloudStack</span>
-    <span class="version">3</span>
+    <span class="version">4</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <div class="title"><a href="../current/index.html">Eitco CloudStack</a></div>
       <ul class="versions">
         <li class="version is-latest">
-          <a href="../current/index.html">4</a>
+          <a href="../current/index.html">4.1</a>
         </li>
         <li class="version is-current">
-          <a href="index.html">3</a>
+          <a href="index.html">4</a>
         </li>
       </ul>
     </li>
@@ -136,68 +136,62 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Eitco CloudStack</a></li>
-    <li><a href="ordering-k8s.html">Bestellung eines Kubernetes-Clusters</a></li>
+    <li><a href="gitops-first.html">Git Ops First&#8201;&#8212;&#8201;Was ist GitOps?</a></li>
   </ul>
 </nav>
 <div class="page-versions">
-  <button class="version-menu-toggle" title="Show other versions of page">3</button>
+  <button class="version-menu-toggle" title="Show other versions of page">4</button>
   <div class="version-menu">
-    <a class="version" href="../current/ordering-k8s.html">4</a>
-    <a class="version is-current" href="ordering-k8s.html">3</a>
+    <a class="version" href="../current/gitops-first.html">4.1</a>
+    <a class="version is-current" href="gitops-first.html">4</a>
   </div>
 </div>
-<div class="edit-this-page"><a href="https://github.com/eitco/argo-hub/edit/release/v3.0/docs/modules/ROOT/pages/ordering-k8s.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/eitco/argo-hub/edit/release/v4.0/docs/modules/ROOT/pages/gitops-first.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Bestellung eines Kubernetes-Clusters</h1>
+<h1 class="page">Git Ops First&#8201;&#8212;&#8201;Was ist GitOps?</h1>
 <div class="sect1">
-<h2 id="_ablauf"><a class="anchor" href="#_ablauf"></a>Ablauf</h2>
+<h2 id="_ziel"><a class="anchor" href="#_ziel"></a>Ziel</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Um einen Kubernetes-Cluster zu bestellen, sende bitte eine E-Mail an die folgende Adresse:</p>
+<p>Mittels GitOps wollen wir einen zentralen Ort definieren, welcher als sogenannte “Quelle der Wahrheit” dient.</p>
 </div>
 <div class="paragraph">
-<p><a href="mailto:kubernetes@eitco.de">kubernetes@eitco.de</a></p>
+<p>Damit wir uns zukünftig die händischen Anpassungen in Kubernetes Clustern ersparen und somit die Fehleranfälligkeit minimieren, nutzen wir GitOps.</p>
 </div>
 <div class="sect2">
-<h3 id="_erforderliche_informationen"><a class="anchor" href="#_erforderliche_informationen"></a>Erforderliche Informationen</h3>
+<h3 id="_warum"><a class="anchor" href="#_warum"></a>Warum?</h3>
 <div class="paragraph">
-<p>Deine Anfrage muss die folgenden Informationen enthalten:</p>
+<p>Mittels GitOps soll ein gewünschter Systemzustand in einer versionierten, nachvollziehbaren Weise hinterlegt werden, wie wir es bereits von Git gewohnt sind und auch schätzen.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_wie"><a class="anchor" href="#_wie"></a>Wie?</h3>
+<div class="paragraph">
+<p>Es sollen Anpassungen lediglich über das entsprechende Git-Repository erfolgen und an keiner anderen Stelle. Wer in das Git-Repo schaut, sieht den Zustand und weiß, was sich auf dem/n Kubernetes Cluster/n befindet und abspielt.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vergleich_mit_puppet"><a class="anchor" href="#_vergleich_mit_puppet"></a>Vergleich mit Puppet</h3>
+<div class="paragraph">
+<p>Ähnliche Workflows nutzen wir bereits erfolgreich in der Eitco mittels Puppet. Auch, wenn der Vergleich nicht zu 100% passt, so ist das Ziel nicht besonders anders:</p>
+</div>
+<div class="paragraph">
+<p>Wir wollen festgelegte Konfigurationszustände – die wir im Git verwalten – in genau diesem Zustand auf den Zielsystemen vorfinden und somit eine Reproduzierbarkeit erhalten.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_weiterführende_literatur"><a class="anchor" href="#_weiterführende_literatur"></a>Weiterführende Literatur</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Name des Anforderers</p>
-</li>
-<li>
-<p>Projektname / Name des internen Systems (Bitte gib hier zusätzlich ein eindeutiges Projekt Kürzel an - wird für die Namensgebung des Clusters benötigt. Wir bitten darum das Jira-Projekt-Kürzel zu verwenden!)</p>
-</li>
-<li>
-<p>Art des Systems: Dev/Test, Demo System, (internes) Produktiv System</p>
-</li>
-<li>
-<p>AD-Gruppe der User, welche Zugriff erhalten sollen</p>
-</li>
-<li>
-<p>Ressourcenanforderungen: klein, mittel, groß (exakte Hardware-Anforderungen werden in Zukunft möglich sein)</p>
+<p><a href="https://www.redhat.com/en/topics/devops/what-is-gitops">What is GitOps? Benefits, Principles, and How to Get Started</a></p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_überprüfungsprozess"><a class="anchor" href="#_überprüfungsprozess"></a>Überprüfungsprozess</h3>
-<div class="paragraph">
-<p>Nachdem deine Anfrage eingegangen ist, wird sie von einem Platform Engineer überprüft. Dies kann ein wenig Zeit in Anspruch nehmen.</p>
-</div>
-<div class="paragraph">
-<p>Stelle sicher, dass alle erforderlichen Informationen in deiner Anfrage enthalten sind, um Verzögerungen zu vermeiden.</p>
-</div>
-<div class="paragraph">
-<p>Die technische Bereitstellung selbst dauert je nach Umgebung ca. 30 Minuten.</p>
 </div>
 </div>
 </div>
